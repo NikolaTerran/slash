@@ -10,6 +10,7 @@
 #include "slash.h"
 
 
+
 //static void siginthandler2(int signo){
 //	if(SIGINT == signo){
 //		printf("\n");
@@ -18,19 +19,11 @@
 //	}
 //}
 
-int exeorder(){
+int exeorder(char ** comrade){
 	
-		char * input;
-		input = malloc(256);
-		char ** comrade;
-		comrade = malloc(256);
 
-		char cwd[256];
-		printf("%s@%s:%s $ ",getenv("USER"),getenv("HOSTNAME"),getcwd(cwd, sizeof(cwd)));
 		
-		scanf(" %[^\n]s",input);
-		printf("input: %s\n",input);
-		comrade = parse_args(input);
+
 	
 		if(!strcmp(comrade[0],"exit")){
 			exit(0);
@@ -60,10 +53,7 @@ int exeorder(){
 			wait(NULL);
 		}
 		
-		free(input);
-		free(comrade);
-		input = malloc(256);
-		comrade = malloc(256);
+
 		return 0;
 }
 
