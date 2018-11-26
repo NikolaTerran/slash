@@ -14,8 +14,8 @@ int operation(char ** comrade, int position){
 	if(!strcmp(comrade[position],";")){
 		char ** comrade_clone1;
 		char ** comrade_clone2;
-		comrade_clone1 = malloc(10*256*sizeof(char));
-		comrade_clone2 = malloc(10*256*sizeof(char));
+		comrade_clone1 = malloc(256*sizeof(char));
+		comrade_clone2 = malloc(256*sizeof(char));
 		int i = 0;
 		int j = 0;
 		while(strcmp(comrade[i],";")){
@@ -38,7 +38,11 @@ int operation(char ** comrade, int position){
 		exeorder(comrade_clone2);
 		wait(NULL);
 	}else if(!strcmp(comrade[position],">")){
-		/*char ** comrade_clone1;
+		wut = dup(STDOUT_FILENO);
+		dup2(3, STDOUT_FILENO);
+		printf("hola");
+		dup2(backup_stdout, STDOUT_FILENO);		
+	/*char ** comrade_clone1;
 		char ** comrade_clone2;
 		comrade_clone1 = malloc(10*256*sizeof(char));
 		comrade_clone2 = malloc(10*256*sizeof(char));
