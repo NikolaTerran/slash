@@ -10,7 +10,7 @@
 #include "slash.h"
 
 static void siginthandler(int signo){
-	if(SIGINT == signo){		
+	if(SIGINT == signo){
 		char cwd[256];
 		printf("\n%s@%s:%s $ ",getenv("USER"),getenv("HOSTNAME"),getcwd(cwd, sizeof(cwd)));
 		fflush(stdout);
@@ -18,10 +18,14 @@ static void siginthandler(int signo){
 }
 
 static void siginthandler2(int signo){
-	if(SIGINT == signo){		
+	if(SIGINT == signo){
 		printf("\n");
+		//char cwd[256];
+		//printf("\n%s@%s:%s $ ",getenv("USER"),getenv("HOSTNAME"),getcwd(cwd, sizeof(cwd)));
+		//fflush(stdout);
 	}
 }
+
 /*
 int getch(void)
 {
@@ -89,10 +93,8 @@ int main(){
 	char ** comrade;
 	while(1){
 		signal(SIGINT,siginthandler);
-		input = malloc(256);
-		
+		input = malloc(256);	
 		comrade = malloc(256);
-
 
 		char cwd[256];
 		printf("%s@%s:%s $ ",getenv("USER"),getenv("HOSTNAME"),getcwd(cwd, sizeof(cwd)));
@@ -100,7 +102,6 @@ int main(){
 		scanf(" %[^\n]s",input);
 		printf("input: %s\n",input);
 		comrade = parse_args(input);
-
 		signal(SIGINT,siginthandler2);
 		exeorder(comrade);
 		free(input);
@@ -108,3 +109,4 @@ int main(){
 	}
 	return 0;
 }
+
