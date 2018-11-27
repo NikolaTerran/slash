@@ -20,10 +20,12 @@
 //}
 
 int exeorder(char ** comrade){
-
+		//if(!comrade[0]){
+		//	//printf("");
+		//}else
 		if(!strcmp(comrade[0],"exit")){
 			exit(0);
-		}
+		}else
 		
 		if(!strcmp(comrade[0],"cd")){
 			if(comrade[2]){

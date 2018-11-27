@@ -17,6 +17,7 @@ int operation(char ** comrade, int position){
 	comrade_clone1 = malloc(256*sizeof(char));
 	comrade_clone2 = malloc(256*sizeof(char));
 	filename = malloc(256*sizeof(char));
+	if(!comrade[position]){}else
 	if(!strcmp(comrade[position],";")){
 		int i = 0;
 		int j = 0;
@@ -52,7 +53,7 @@ int operation(char ** comrade, int position){
 		i++;
 		while(comrade[i]){
 			comrade_clone2[j] = comrade[i];
-			printf("this is in hwile: cc2: %s\n",comrade_clone2[j]);
+//			printf("this is in hwile: cc2: %s\n",comrade_clone2[j]);
 			i++;
 			j++;
 		}
@@ -60,10 +61,13 @@ int operation(char ** comrade, int position){
 		int woo = open(filename,O_CREAT | O_WRONLY,0644);
 		int stdout_clone = dup(STDOUT_FILENO);
 		dup2(woo,STDOUT_FILENO);
-		int f = fork();
 		exeorder(comrade_clone1);
 		dup2(stdout_clone,STDOUT_FILENO);
+		
 		close(woo);
+		operation(comrade_clone2,0);
+		//free(comrade_clone1);
+		//free(comrade_clone2);
 		//exeorder(comrade_clone2);
 	}else if(!strcmp(comrade[position],"<")){
 		printf("I don't know how to do this\n");
