@@ -20,11 +20,7 @@
 //}
 
 int exeorder(char ** comrade){
-	
 
-		
-
-	
 		if(!strcmp(comrade[0],"exit")){
 			exit(0);
 		}
@@ -56,4 +52,5 @@ int exeorder(char ** comrade){
 
 		return 0;
 }
+
 
