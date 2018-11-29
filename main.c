@@ -12,7 +12,9 @@
 static void siginthandler(int signo){
 	if(SIGINT == signo){
 		char cwd[256];
-		printf("\n%s@%s:%s $ ",getenv("USER"),getenv("HOSTNAME"),getcwd(cwd, sizeof(cwd)));
+		char hostname[256];
+		gethostname(hostname,256);
+		printf("\n%s@%s:%s $ ",getenv("USER"),hostname,getcwd(cwd, sizeof(cwd)));
 		fflush(stdout);
 	}
 }
@@ -91,15 +93,17 @@ int main(){
 	signal(SIGINT,siginthandler);
 	char * input;
 	char ** comrade;
+	char hostname[256];
+	gethostname(hostname,256);
 	//int i = 0;
 	while( 2){
 		//close(STDIN_FILENO);
 		signal(SIGINT,siginthandler);
 		input = malloc(256);	
 		comrade = malloc(256);
-	
+
 		char cwd[256];
-		printf("%s@%s:%s $ ",getenv("USER"),getenv("HOSTNAME"),getcwd(cwd, sizeof(cwd)));
+		printf("%s@%s:%s $ ",getenv("USER"),hostname,getcwd(cwd, sizeof(cwd)));
 		
 		scanf(" %[^\n]s",input);
 		printf("input: %s\n",input);
@@ -107,6 +111,7 @@ int main(){
 		signal(SIGINT,siginthandler2);
 		//if(i ==1){sleep(100);}
 		exeorder(comrade);
+		//wait(NULL);
 		free(input);
 		free(comrade);
 		//i ++;

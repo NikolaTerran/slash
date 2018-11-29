@@ -32,40 +32,46 @@ char** initialize2(char** comrade,int * i){
 			(*i)++;
 			j++;
 		}
-	(*i)++;
+	//(*i)++;
 	comrade_clone[j] = NULL;
 	return comrade_clone;
 }
-/*
-void if_redir(char ** comrade,char** ){
+
+void if_redir(char ** comrade, int*i){
+	int j = 0;
+	char** comrade_clone;
+	comrade_clone = malloc(256);
 	if(!comrade[i]){}else
-		if(!strcmp(comrade[i],";")){
-			i++;
-			while(comrade[i]){
-				comrade_clone2[j] = comrade[i];
+		if(!strcmp(comrade[*i],";")){
+			(*i)++;
+			while(comrade[*i]){
+				comrade_clone[j] = comrade[*i];
 				//printf("this is in hwile: cc2: %s\n",comrade_clone2[j]);
-				i++;
+				(*i)++;
 				j++;
 			}
-			comrade_clone2[j] = NULL;
-			exeorder(comrade_clone2);
-		}else if(!strcmp(comrade[i],">")){
-			while(comrade_clone1[j]){
-				comrade_clone2[j] = comrade_clone1[j];
+			comrade_clone[j] = NULL;
+			exeorder(comrade_clone);
+		}else if(!strcmp(comrade[*i],">")){
+			
+			
+			while(comrade[*i]){
+				comrade_clone[j] = comrade[*i];
 				j++;
+				(*i)++;
 			}
 			while(comrade[i]){
-				comrade_clone2[j] = comrade[i];
+				comrade_clone[j] = comrade[i];
 				i++;
 				j++;
 			}
-			comrade_clone2[j]=NULL;
-			exeorder(comrade_clone2);
+			comrade_clone[j]=NULL;
+			exeorder(comrade_clone);
 		}else{
 			printf("info: items after %s are ignored\n",filename);
 		}
 }
-*/
+
 int operation(char ** comrade, int position){
 	char ** comrade_clone1;
 	char ** comrade_clone2;
@@ -91,7 +97,7 @@ int operation(char ** comrade, int position){
 		filename = malloc(256*sizeof(char));
 		filename = comrade[*i];
 		(*i)++;
-		comrade_clone2 = initialize2(comrade,i);
+		//comrade_clone2 = initialize2(comrade,i);
 		int woo = open(filename,O_CREAT | O_WRONLY,0644);
 		int stdout_clone = dup(STDOUT_FILENO);
 		dup2(woo,STDOUT_FILENO);
@@ -104,6 +110,17 @@ int operation(char ** comrade, int position){
 		exeorder(comrade_clone1);
 		dup2(stdout_clone,STDOUT_FILENO);
 		close(woo);
+		if(comrade[*i]){
+			int j = (*i);
+			int k = (*i) - 2;			
+			while(comrade[j]){
+				comrade[k] = comrade[j];
+				k++;j++;
+			}
+			comrade[k] = 0;
+			(*i) = (*i) - 3;
+		}
+		if_redir(comrade,i);
 		
 	}else if(!strcmp(comrade[position],"<")){
 		comrade_clone1 = initialize(comrade,i,"<");
@@ -249,7 +266,7 @@ int operation(char ** comrade, int position){
                 //nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
                 //printf("Received string: %s", readbuffer);
         }
-		
+		wait(NULL);
 		
 	}
 		//free(comrade_clone1);
