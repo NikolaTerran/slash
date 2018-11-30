@@ -37,12 +37,15 @@ char** initialize2(char** comrade,int * i){
 	return comrade_clone;
 }
 
+
+
 void if_redir(char ** comrade, int*i){
 	int j = 0;
 	char** comrade_clone;
 	comrade_clone = malloc(256);
-	if(!comrade[i]){}else
+	
 		if(!strcmp(comrade[*i],";")){
+
 			(*i)++;
 			while(comrade[*i]){
 				comrade_clone[j] = comrade[*i];
@@ -53,24 +56,62 @@ void if_redir(char ** comrade, int*i){
 			comrade_clone[j] = NULL;
 			exeorder(comrade_clone);
 		}else if(!strcmp(comrade[*i],">")){
-			
-			
-			while(comrade[*i]){
-				comrade_clone[j] = comrade[*i];
-				j++;
-				(*i)++;
+			//printf("i: %d com[i]: %s detect_operator--:%d\n",*i,comrade[*i],detect_operators(comrade,(*i)--));
+			if(detect_operators(comrade,(*i)--) || detect_operators(comrade,(*i)++)){
+				printf("syntax error\n");
+			}else if(comrade[*i]){
+			j = (*i);
+			int k = (*i) - 2;			
+			while(comrade[j]){
+					comrade[k] = comrade[j];
+					k++;j++;
 			}
-			while(comrade[i]){
-				comrade_clone[j] = comrade[i];
-				i++;
-				j++;
-			}
-			comrade_clone[j]=NULL;
+			comrade[k] = NULL;
+			(*i) = (*i) - 3;
+			
+			comrade_clone = initialize2(comrade,i);
+			//comrade_clone=NULL;
 			exeorder(comrade_clone);
-		}else{
-			printf("info: items after %s are ignored\n",filename);
+		}}else if(!strcmp(comrade[*i],"<")){
+			//printf("i: %d com[i]: %s detect_operator--:%d\n",*i,comrade[*i],detect_operators(comrade,(*i)--));
+			if(detect_operators(comrade,(*i)--) || detect_operators(comrade,(*i)++)){
+				printf("syntax error\n");
+			}else if(comrade[*i]){
+			j = (*i);
+			int k = (*i) - 2;			
+			while(comrade[j]){
+					comrade[k] = comrade[j];
+					k++;j++;
+			}
+			comrade[k] = NULL;
+			(*i) = (*i) - 3;
+			
+			comrade_clone = initialize2(comrade,i);
+			//comrade_clone=NULL;
+			exeorder(comrade_clone);
+		}}else if(!strcmp(comrade[*i],"|")){
+			if(detect_operators(comrade,(*i)--) || detect_operators(comrade,(*i)++)){
+				printf("syntax error\n");
+			}else if(comrade[*i]){
+			j = (*i) - 1;
+			int k = (*i) - 3;			
+			while(comrade[j]){
+					comrade[k] = comrade[j];
+					k++;j++;
+			}
+			comrade[k] = NULL;
+			(*i) = (*i) - 3;
+			
+			comrade_clone = initialize2(comrade,i);
+			//comrade_clone=NULL;
+			exeorder(comrade_clone);
+			
+		}}
+		else{
+			printf("wut r u dooin?\n");
 		}
-}
+	}
+
 
 int operation(char ** comrade, int position){
 	char ** comrade_clone1;
@@ -92,11 +133,15 @@ int operation(char ** comrade, int position){
 		exeorder(comrade_clone2);
 	}else if(!strcmp(comrade[position],">")){
 		//printf(strcmp
+		
 		comrade_clone1 = initialize(comrade,i,">");
 		char * filename;
 		filename = malloc(256*sizeof(char));
 		filename = comrade[*i];
 		(*i)++;
+		if(detect_operators(comrade,(*i)--) || detect_operators(comrade,(*i)++)){
+				printf("syntax error\n");
+			}else{
 		//comrade_clone2 = initialize2(comrade,i);
 		int woo = open(filename,O_CREAT | O_WRONLY,0644);
 		int stdout_clone = dup(STDOUT_FILENO);
@@ -111,25 +156,21 @@ int operation(char ** comrade, int position){
 		dup2(stdout_clone,STDOUT_FILENO);
 		close(woo);
 		if(comrade[*i]){
-			int j = (*i);
-			int k = (*i) - 2;			
-			while(comrade[j]){
-				comrade[k] = comrade[j];
-				k++;j++;
-			}
-			comrade[k] = 0;
-			(*i) = (*i) - 3;
-		}
-		if_redir(comrade,i);
+		if_redir(comrade,i);}
+	}
 		
 	}else if(!strcmp(comrade[position],"<")){
+
+		
 		comrade_clone1 = initialize(comrade,i,"<");
 		char * filename;
 		filename = malloc(256*sizeof(char));
 		filename = comrade[*i];
 		(*i)++;
-		comrade_clone2 = initialize2(comrade,i);
-		
+		//comrade_clone2 = initialize2(comrade,i);
+			if(detect_operators(comrade,(*i)--) || detect_operators(comrade,(*i)++)){
+				printf("syntax error\n");
+			}else{
 		int woo = open(filename, O_RDONLY);
 		int stdin_clone = dup(STDIN_FILENO);
 		dup2(woo,STDIN_FILENO);
@@ -137,6 +178,8 @@ int operation(char ** comrade, int position){
 		dup2(stdin_clone,STDIN_FILENO);
 		
 		close(woo);
+		if(comrade[*i]){
+		if_redir(comrade,i);}}
 		/*int i = 0;
 		int j = 0;
 		//FILE* woo = dup(STDOUT_FILENO);

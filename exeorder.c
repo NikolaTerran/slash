@@ -36,8 +36,8 @@ int exeorder(char ** comrade){
 					printf("Unable to move to \"%s\"\n",comrade[1]);
 				}
 			}
-		}else if(detect_operators(comrade)){
-			int i = detect_operators(comrade);
+		}else if(detect_operators(comrade,0)){
+			int i = detect_operators(comrade,0);
 			operation(comrade,i);
 			
 		}else{

@@ -10,8 +10,7 @@
 #include "slash.h"
 
 
-int detect_operators(char ** comrade){
-	int i = 0;
+int detect_operators(char ** comrade, int i){
 	while(comrade[i]){
 		if(!strcmp(comrade[i],";")){
 			return i;
