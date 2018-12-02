@@ -7,17 +7,19 @@ Features:
 	Forks and executes commands!
 	Disregard C^
 	Parses multiple commands on one line!
+	Can Redirect using >, <!
+	Can get pipes to work
+	It will give you a syntax error warning if you try to do wierd stuff with redirect
+	Shows you input in the beginning
 
 Attempted:
 	The following did not end up working, but have been left in the code, commented out.
 	A nethack looking interface
-	Cannot Redirect using >, <!
 	Cannot Guarantee to regrow hair!
 	Cannot summon a winged unicorn for fast & magical transit!
-	Could not get pipes to work
 
 Bugs:
-	Putting two ;'s next to each other will break the parser
+	Input should be no longer than 256 characters.
 	
 Files & Function Headers:
 parse_args.c
@@ -40,4 +42,8 @@ detect_operators.c
 	inputs: comrade
 	returns: 0
 	
+main.c
+	the main.
 
+slash.h
+	function header.
