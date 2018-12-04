@@ -180,7 +180,29 @@ int operation(char ** comrade, int position){
 		
 	}else if(!strcmp(comrade[position],"<")){
 
-		
+		if(comrade[position + 2]){
+		if(!strcmp(comrade[position + 2],">")){
+			comrade_clone1 = initialize(comrade,i,"<");
+		char * filename;
+		filename = malloc(256*sizeof(char));
+		filename = comrade[*i];
+		(*i)++;
+		char * filename2;
+		filename2 = malloc(256*sizeof(char));
+		(*i)= (*i) + 2;
+		int woo = open(filename, O_RDONLY);
+		int stdin_clone = dup(STDIN_FILENO);
+		dup2(woo,STDIN_FILENO);
+		int goo = open(filename2, O_CREAT | O_WRONLY, 0644);
+		int stdout_clone = dup(STDOUT_FILENO);
+		dup2(goo,STDOUT_FILENO);
+
+		exeorder(comrade_clone1);
+		dup2(stdin_clone,STDIN_FILENO);
+		dup2(stdout_clone,STDOUT_FILENO);
+
+			}
+		}else{
 		comrade_clone1 = initialize(comrade,i,"<");
 		char * filename;
 		filename = malloc(256*sizeof(char));
@@ -200,7 +222,10 @@ int operation(char ** comrade, int position){
 		
 		close(woo);
 		if(comrade[*i]){
-		if_redir(comrade,i);}//}
+		if_redir(comrade,i);}
+		
+		}
+		//}
 		/*int i = 0;
 		int j = 0;
 		//FILE* woo = dup(STDOUT_FILENO);
