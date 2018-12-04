@@ -1,6 +1,7 @@
 all: main.o parse_args.o exeorder.o detect_operators.o operation.o slash.h
 	gcc -o slash main.o parse_args.o exeorder.o detect_operators.o operation.o
-  
+	rm *.o  
+
 main.o: main.c slash.h
 	gcc -c main.c
   

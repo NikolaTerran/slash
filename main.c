@@ -106,11 +106,14 @@ int main(){
 		printf("%s@%s:%s $ ",getenv("USER"),hostname,getcwd(cwd, sizeof(cwd)));
 		
 		scanf(" %[^\n]s",input);
-		printf("input: %s\n",input);
-		comrade = parse_args(input);
-		signal(SIGINT,siginthandler2);
+		//if(sizeof(*input)<256){
+			printf("input size: %d\n",sizeof(input));
+			printf("input: %s\n",input);
+			comrade = parse_args(input);
+			signal(SIGINT,siginthandler2);
 		//if(i ==1){sleep(100);}
-		exeorder(comrade);
+			exeorder(comrade);//}
+		//else{printf("Command too long\n");}
 		//wait(NULL);
 		free(input);
 		free(comrade);
