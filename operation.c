@@ -186,10 +186,13 @@ int operation(char ** comrade, int position){
 		char * filename;
 		filename = malloc(256*sizeof(char));
 		filename = comrade[*i];
+		//printf("com now?: %s\n",comrade[*i]);
 		(*i)++;
 		char * filename2;
 		filename2 = malloc(256*sizeof(char));
-		(*i)= (*i) + 2;
+		(*i)++;
+		filename2 = comrade[*i];
+		//printf("com now?: %s\n",comrade[*i]);
 		int woo = open(filename, O_RDONLY);
 		int stdin_clone = dup(STDIN_FILENO);
 		dup2(woo,STDIN_FILENO);

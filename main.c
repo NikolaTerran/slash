@@ -107,7 +107,6 @@ int main(){
 		
 		scanf(" %[^\n]s",input);
 		//if(sizeof(*input)<256){
-			printf("input size: %d\n",sizeof(input));
 			printf("input: %s\n",input);
 			comrade = parse_args(input);
 			signal(SIGINT,siginthandler2);
